@@ -19,4 +19,10 @@ function doSomethingWithSelectedText() {
 	}
 }
 
+function saveAnnotations(textSelection) {
+	var data = textSelection;
+	chrome.storage.local.set({'value': data}, function());
+	alert(chrome.storage.local.get('value', function());
+}
+
 document.onmouseup = doSomethingWithSelectedText;
