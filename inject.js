@@ -1,6 +1,6 @@
 var ANNOT = {};
 
-alert("I'm annotating!");
+alert("I'm annotating!"); // check that app loaded correctly
 
 function getSelectedText() {
 	var text = "";
@@ -12,17 +12,14 @@ function getSelectedText() {
 	return text;
 }
 
-function doSomethingWithSelectedText() {
-	var selectedText = getSelectedText();
-	if (selectedText) {
-		alert("Got selected text " + selectedText);
+function saveAnnotations() {
+	var data = getSelectedText();
+	if (data) {
+		chrome.storage.local.set({'A0001': data});
+		chrome.storage.local.get('A0001', function(data) {
+			console.log(data); // debug
+		});
 	}
 }
 
-function saveAnnotations(textSelection) {
-	var data = textSelection;
-	chrome.storage.local.set({'value': data}, function());
-	alert(chrome.storage.local.get('value', function());
-}
-
-document.onmouseup = doSomethingWithSelectedText;
+document.onmouseup = saveAnnotations;
