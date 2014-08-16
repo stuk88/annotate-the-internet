@@ -34,16 +34,16 @@ var toggleOverlay = function() {
 }
 
 var setup = function() {
-	var overlay = $('<div id="overlay"></div>');
-	$('body').append(overlay);
+	// overlay
+	$('body').append($('<div id="overlay"></div>'));
 
-	var annotBox = $('<div id="annotBox"></div>');
-	var editor = $('<textarea id="annotEditor">Hi, I\'m an annotater box!</textarea>');
-	annotBox.append(editor);
-	var button = $('<button>Hide box</button>');
-	button.click(toggleOverlay);
-	annotBox.append(button);
-	$('body').append(annotBox);
+	// annotation box
+	$('body')
+		.append($('<div id="annotBox"></div>')
+			.append($('<textarea id="annotEditor"></textarea>')
+				.text("Hi, I\'m an annotater box!"))
+			.append($('<button>Hide box</button>')
+				.click(toggleOverlay)));
 }
 
 document.onmouseup = doSomethingWithSelectedText;
