@@ -1,8 +1,12 @@
-var ANNOT = {};
+var ANNOT = {
+	overlayHidden : true,
+	annotations : [],
+	curSelection : null,
+};
 
 console.log("Annosurf is active!"); // check that app loaded correctly
 
-function getSelectedText() {
+var getSelectedText = function() {
 	var text = "";
 	if (typeof window.getSelection != "undefined") {
 		text = window.getSelection().toString();
@@ -10,7 +14,18 @@ function getSelectedText() {
 		text = document.selection.createRange().text;
 	}
 	return text;
-}
+};
+
+var doSomethingWithSelectedText = function() {
+	if (!ANNOT.overlayHidden) return; // don't change selection if annotating
+	var selectedText = getSelectedText();
+	if (selectedText) {
+		if (ANNOT.overlayHidden) toggleOverlay();
+		ANNOT.curSelection = window.getSelection();
+	} else {
+		ANNOT.curSelection = null;
+	}
+};
 
 function saveAnnotations() {
 	var data = getSelectedText();
@@ -19,7 +34,48 @@ function saveAnnotations() {
 		chrome.storage.local.get('A0001', function(data) {
 			console.log(data['A0001']); // check that data was stored and can be read
 		});
+
+var toggleOverlay = function() {
+	var overlay = $('#overlay');
+	var annotBox = $('#annotBox');
+	overlay.css('opacity', .8);
+
+	if (overlay.css('display') === 'block') {
+		overlay.css('display', 'none');
+		annotBox.css('display', 'none');
+		saveAnnotation();
+	} else {
+		overlay.css('display', 'block');
+		annotBox.css('display', 'block');
 	}
-}
+
+	ANNOT.overlayHidden = !ANNOT.overlayHidden;
+};
+
+var setup = function() {
+	// overlay
+	$('body').append($('<div id="overlay"></div>'));
+
+	// annotation box
+	$('body')
+		.append($('<div id="annotBox"></div>')
+			.append($('<textarea id="annotEditor"></textarea>')
+				.text("Hi, I\'m an annotater box!"))
+			.append($('<button>Hide box</button>')
+				.click(toggleOverlay)));
+};
+
+var saveAnnotation = function() {
+	var index = -1;
+	for (var i = 0; i < ANNOT.annotations.length; i++) {} // TODO
+
+	if (index == -1) {
+		var annot = [ANNOT.curSelection, ""];
+		annot[1] = $('#annotBox').text();
+		ANNOT.annotations.push(annotation);
+	}
+};
 
 document.onmouseup = saveAnnotations;
+document.onmouseup = doSomethingWithSelectedText;
+setup();
