@@ -2,7 +2,6 @@ var ANNOT = {};
 
 alert("I'm annotating!");
 
-
 function getSelectedText() {
 	var text = "";
 	if (typeof window.getSelection != "undefined") {
@@ -21,4 +20,3 @@ function doSomethingWithSelectedText() {
 }
 
 document.onmouseup = doSomethingWithSelectedText;
-document.onkeyup = doSomethingWithSelectedText;
