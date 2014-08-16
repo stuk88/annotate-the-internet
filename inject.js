@@ -27,14 +27,6 @@ var doSomethingWithSelectedText = function() {
 	}
 };
 
-function saveAnnotations() {
-	var data = getSelectedText();
-	if (data) {
-		chrome.storage.local.set({'A0001': data});
-		chrome.storage.local.get('A0001', function(data) {
-			console.log(data['A0001']); // check that data was stored and can be read
-		});
-
 var toggleOverlay = function() {
 	var overlay = $('#overlay');
 	var annotBox = $('#annotBox');
@@ -65,17 +57,18 @@ var setup = function() {
 				.click(toggleOverlay)));
 };
 
-var saveAnnotation = function() {
-	var index = -1;
-	for (var i = 0; i < ANNOT.annotations.length; i++) {} // TODO
+function saveAnnotation() {
+	chrome.storage.local.set({"storedText" : [ANNOT.annotations]});
+	chrome.storage.local.get("storedText", function(data) {
+		console.log(data);
+	});
 
-	if (index == -1) {
-		var annot = [ANNOT.curSelection, ""];
-		annot[1] = $('#annotBox').text();
-		ANNOT.annotations.push(annotation);
-	}
-};
+	//if (index == -1) {
+	//	var annot = [ANNOT.curSelection, ""];
+	//	annot[1] = $('#annotBox').text();
+	//	ANNOT.annotations.push(annotation);
+	//}
+}
 
-document.onmouseup = saveAnnotations;
 document.onmouseup = doSomethingWithSelectedText;
 setup();
