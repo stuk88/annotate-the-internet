@@ -1,5 +1,7 @@
 var ANNOT = {
 	overlayHidden : true,
+	annotations : [],
+	curSelection : null,
 };
 
 var getSelectedText = function() {
@@ -10,14 +12,19 @@ var getSelectedText = function() {
 		text = document.selection.createRange().text;
 	}
 	return text;
-}
+};
 
 var doSomethingWithSelectedText = function() {
+	if (!ANNOT.overlayHidden) return; // don't change selection if annotating
+
 	var selectedText = getSelectedText();
-	if (selectedText && ANNOT.overlayHidden) {
-		toggleOverlay();
+	if (selectedText) {
+		if (ANNOT.overlayHidden) toggleOverlay();
+		ANNOT.curSelection = window.getSelection();
+	} else {
+		ANNOT.curSelection = null;
 	}
-}
+};
 
 var toggleOverlay = function() {
 	var overlay = $('#overlay');
@@ -27,11 +34,14 @@ var toggleOverlay = function() {
 	if (overlay.css('display') === 'block') {
 		overlay.css('display', 'none');
 		annotBox.css('display', 'none');
+		saveAnnotation();
 	} else {
 		overlay.css('display', 'block');
 		annotBox.css('display', 'block');
 	}
-}
+
+	ANNOT.overlayHidden = !ANNOT.overlayHidden;
+};
 
 var setup = function() {
 	// overlay
@@ -44,7 +54,18 @@ var setup = function() {
 				.text("Hi, I\'m an annotater box!"))
 			.append($('<button>Hide box</button>')
 				.click(toggleOverlay)));
-}
+};
+
+var saveAnnotation = function() {
+	var index = -1;
+	for (var i = 0; i < ANNOT.annotations.length; i++) {} // TODO
+
+	if (index == -1) {
+		var annot = [ANNOT.curSelection, ""];
+		annot[1] = $('#annotBox').text();
+		ANNOT.annotations.push(annotation);
+	}
+};
 
 document.onmouseup = doSomethingWithSelectedText;
 setup();
