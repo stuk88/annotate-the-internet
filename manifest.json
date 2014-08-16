@@ -6,11 +6,10 @@
 	"version": "1.0",
 
 	"permissions": [
-		"https://secure.flickr.com/"
 	],
 	"content_scripts": [
 		{
-			"matches": ["http://*/*", "https://*/*"],
+			"matches": ["http://en.wikipedia.org/wiki/*"],
 			"js": ["inject.js"]
 		}
 	],
