@@ -1,6 +1,6 @@
-var ANNOT = {};
-
-alert("I'm annotating!");
+var ANNOT = {
+	overlayHidden : true,
+};
 
 var getSelectedText = function() {
 	var text = "";
@@ -14,9 +14,36 @@ var getSelectedText = function() {
 
 var doSomethingWithSelectedText = function() {
 	var selectedText = getSelectedText();
-	if (selectedText) {
-		alert("Got selected text " + selectedText);
+	if (selectedText && ANNOT.overlayHidden) {
+		toggleOverlay();
 	}
 }
 
+var toggleOverlay = function() {
+	var overlay = $('#overlay');
+	var annotBox = $('#annotBox');
+	overlay.css('opacity', .8);
+
+	if (overlay.css('display') === 'block') {
+		overlay.css('display', 'none');
+		annotBox.css('display', 'none');
+	} else {
+		overlay.css('display', 'block');
+		annotBox.css('display', 'block');
+	}
+}
+
+var setup = function() {
+	var overlay = $('<div id="overlay"></div>');
+	$('body').append(overlay);
+
+	var annotBox = $('<div id="annotBox"></div>');
+	annotBox.append($('<p>Hi, I\'m an annotater box!</p>'));
+	var button = $('<button>Hide box</button>');
+	button.click(toggleOverlay);
+	annotBox.append(button);
+	$('body').append(annotBox);
+}
+
 document.onmouseup = doSomethingWithSelectedText;
+setup();

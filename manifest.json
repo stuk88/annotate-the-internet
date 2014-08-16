@@ -10,7 +10,8 @@
 	"content_scripts": [
 		{
 			"matches": ["http://en.wikipedia.org/wiki/*"],
-			"js": ["inject.js"]
+			"css": ["overlay.css"],
+			"js": ["jquery.min.js", "inject.js"]
 		}
 	],
 	"browser_action": {
