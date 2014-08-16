@@ -38,7 +38,8 @@ var setup = function() {
 	$('body').append(overlay);
 
 	var annotBox = $('<div id="annotBox"></div>');
-	annotBox.append($('<p>Hi, I\'m an annotater box!</p>'));
+	var editor = $('<textarea id="annotEditor">Hi, I\'m an annotater box!</textarea>');
+	annotBox.append(editor);
 	var button = $('<button>Hide box</button>');
 	button.click(toggleOverlay);
 	annotBox.append(button);
