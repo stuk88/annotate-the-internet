@@ -25,3 +25,7 @@ textarea#annotEditor {
 	width: 100%;
 	height: 280px;
 }
+
+span.annotSelection {
+	background: #F00;
+}

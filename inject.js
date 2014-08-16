@@ -57,14 +57,26 @@ var setup = function() {
 };
 
 var saveAnnotation = function() {
+	if (!$('#annotBox').text()) return; // if there's no annot text don't save
+
+	highlightAnnotation(ANNOT.curSelection);
+
 	var index = -1;
 	for (var i = 0; i < ANNOT.annotations.length; i++) {} // TODO
 
 	if (index == -1) {
 		var annot = [ANNOT.curSelection, ""];
 		annot[1] = $('#annotBox').text();
-		ANNOT.annotations.push(annotation);
+		ANNOT.annotations.push(annot);
 	}
+
+	ANNOT.curSelection = null;
+};
+
+var highlightAnnotation = function(selection) {
+	var range = selection.getRangeAt(0);
+	range.endContainer.parentElement.style.background = "red";
+	range.startContainer.parentElement.style.background = "red";
 };
 
 document.onmouseup = doSomethingWithSelectedText;
