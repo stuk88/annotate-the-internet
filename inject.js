@@ -2,7 +2,7 @@ var ANNOT = {};
 
 alert("I'm annotating!");
 
-function getSelectedText() {
+var getSelectedText = function() {
 	var text = "";
 	if (typeof window.getSelection != "undefined") {
 		text = window.getSelection().toString();
@@ -12,7 +12,7 @@ function getSelectedText() {
 	return text;
 }
 
-function doSomethingWithSelectedText() {
+var doSomethingWithSelectedText = function() {
 	var selectedText = getSelectedText();
 	if (selectedText) {
 		alert("Got selected text " + selectedText);
