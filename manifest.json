@@ -1,15 +1,15 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 1.0,
 
-  "name": "One-click Kittens",
-  "description": "This extension demonstrates a browser action with kittens.",
+  "name": "Annosurf",
+  "description": "Surf the web while annotating the important things.",
   "version": "1.0",
 
-  "permissions": [
-    "https://secure.flickr.com/"
-  ],
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html"
-  }
+  },
+  "permissions": [
+    "https://secure.flickr.com/"
+  ]
 }
